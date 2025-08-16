@@ -1,73 +1,60 @@
 /**
-* @class
-* @classdesc This class represents a color.
-* @param {Number} r The red component.
-* @param {Number} g The green component.
-* @param {Number} b The blue component.
-* @param {Number} a The alpha component.
-*/
-var Color = function (r,g,b,a) {
-  // this.vec = new Vector4(r,g,b,a);
+ * @class
+ * @classdesc Represents a color with 8-bit RGB components and a float alpha.
+ * @param {number} r The red component (0-255).
+ * @param {number} g The green component (0-255).
+ * @param {number} b The blue component (0-255).
+ * @param {number} [a=1.0] The alpha component (0.0-1.0).
+ */
+function Color(r, g, b, a = 1.0) {
+  this.data = new Uint8Array([r & 0xFF, g & 0xFF, b & 0xFF]); // Clamp to 0-255
+  this.a = Math.min(Math.max(a, 0.0), 1.0); // Clamp alpha to 0.0-1.0
+}
 
-  this.r = r;
-  this.g = g;
-  this.b = b;
-  this.a = a;
-};
+// Define getters for r, g, b
+Object.defineProperties(Color.prototype, {
+  r: { get: function() { return this.data[0]; }, set: function(v) { this.data[0] = v & 0xFF; } },
+  g: { get: function() { return this.data[1]; }, set: function(v) { this.data[1] = v & 0xFF; } },
+  b: { get: function() { return this.data[2]; }, set: function(v) { this.data[2] = v & 0xFF; } }
+});
 
-// PRE-DEFINED COLORS
-Color.NONE = new Color(0.0, 0.0, 0.0, 0.0);
-Color.RED = new Color(1.0, 0.0, 0.0, 1.0);
-Color.GREEN = new Color(0.0, 1.0, 0.0, 1.0);
-Color.BLUE = new Color(0.0, 0.0, 1.0, 1.0);
-Color.CYAN = new Color(0.0, 1.0, 1.0, 1.0);
-Color.YELLOW = new Color(1.0, 1.0, 0.0, 1.0);
-
-//----------------------------------------------------------------------
-
-/**
-* Return a random color.
-* @returns {Color} The color.
-*/
-Color.random = function () {
-  var r = Math.random();
-  var g = Math.random();
-  var b = Math.random();
-  // var a = Math.Random();
-
-  return new Color(r,g,b,1.0);
-};
-
-//----------------------------------------------------------------------
+// Pre-defined colors (using 0-255 for RGB)
+Color.NONE = new Color(0, 0, 0, 0.0);
+Color.RED = new Color(255, 0, 0, 1.0);
+Color.GREEN = new Color(0, 255, 0, 1.0);
+Color.BLUE = new Color(0, 0, 255, 1.0);
+Color.CYAN = new Color(0, 255, 255, 1.0);
+Color.YELLOW = new Color(255, 255, 0, 1.0);
 
 /**
-* Return an array representation of the color.
-* @returns {Array} An array representation of the color.
-*/
-Color.prototype.toArray = function(){
-  // return this.vec.toArray;
-  var array = new Array(4);
-  array[0] = this.r;
-  array[1] = this.g;
-  array[2] = this.b;
-  array[3] = this.a;
-  return array;
+ * Returns a random color.
+ * @returns {Color} A random color with full alpha.
+ */
+Color.random = function() {
+  return new Color(
+    Math.random() * 255 | 0,
+    Math.random() * 255 | 0,
+    Math.random() * 255 | 0,
+    1.0
+  );
 };
-
-
-//----------------------------------------------------------------------
 
 /**
-* Tests if this color is equal to the other color.
-* @param {Vector4} vec The other color.
-* @returns {boolean} this True if this color is equal to the other color.
-*/
-Color.prototype.equals = function(otherColor){
-  // return this.vec.equals(otherColor.vec);
-  return (this.r === vec.r) &&
-      (this.g === vec.g) &&
-      (this.b === vec.b) &&
-      (this.a === vec.a);
+ * Returns an array representation of the color (RGB: 0-255, A: 0.0-1.0).
+ * @returns {Array<number>} Array of [r, g, b, a].
+ */
+Color.prototype.toArray = function() {
+  return [this.data[0], this.data[1], this.data[2], this.a];
 };
 
-//----------------------------------------------------------------------
+/**
+ * Tests if this color equals another color.
+ * @param {Color} otherColor The color to compare with.
+ * @returns {boolean} True if colors are equal.
+ */
+Color.prototype.equals = function(otherColor) {
+  return this.data[0] === otherColor.data[0] &&
+         this.data[1] === otherColor.data[1] &&
+         this.data[2] === otherColor.data[2] &&
+         this.a === otherColor.a;
+};
