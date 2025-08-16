@@ -13,21 +13,13 @@ See my personal portfolio →
 
 :construction: Working on it :construction: :goberserk:
 
-## About this project
-
->This Game Engine is developed as end-of-degree and it is written in Javascript, WebGL and GLSL. The engine is written from scratch (I'm not crazy, please trust me).
-
->The goal of this project is to serve as Portfolio, proving that I really have certain game programming related knowledge.
-
->This is not my first game engine and will not be the last. Currently, this is my fourth attempt to create a modest, tiny and lightweight game engine. (I lied, none of the game engine on Earth are tiny). I have tried with C++, Java, Python and now it's the turn of JS.
-
->The good thing is that I have learned about powerful, complex and weird stuff like Game Engine Architecture, Graphics Engine Architecture, how to read huge programming books, Physics Engine Architecture, Collision Detection Algorithms, Scripting and much more.
-
->I highly recommend it if you want to really learn about video games internals/game engine programming.
-
->Well... maybe if you want to learn about algebra, arithmetic, trigonometry, numerical integration/differentiation, vector operations, affine transformations, geometry and physics too. ¯\\\_(ツ)_/¯
-
->Why did I name it 'Thief Engine'? ¯\\\_(ツ)_/¯
+## working on 
+- Made with js; -> will migrate it to ts and some wasm ; 
+- Will focus this engine to rts games ;
+- Add more noise types;
+- Reorganize the project;
+- some tools to generate atlas; conversion ;
+- More similar to Unity sintax ; 
 
 
 ## Features
